@@ -40,10 +40,6 @@
     margin-right: 2rem;
   }
   
-  /* .nav-item {
-    height: 80px;
-  } */
-  
   .nav-links {
     color: #fff;
     display: flex;
@@ -54,8 +50,8 @@
   }
   
   .nav-links:hover {
-    /* border-bottom: 4px solid #fff; */
-    transition: all 0.2s ease-out;
+    border-bottom: 4px solid #fff;
+    transition: all 0.3s ease-out;
   }
   
   .menu-icon {
@@ -93,6 +89,7 @@
   
     .nav-links:hover {
       background-color: #28082b;
+      border-bottom: none;
       border-radius: 0;
     }
   
