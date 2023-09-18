@@ -32,7 +32,7 @@ function Home() {
         </Typography>
         </div>
         <div className='calculator-link'>
-          <Link to='/calculator'>Calculator</Link>
+          <Link to='/offers'>Calculator</Link>
         </div>
         </div>
       </HeroSection>

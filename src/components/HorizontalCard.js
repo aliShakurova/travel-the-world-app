@@ -28,6 +28,11 @@ function HorizontalCard(props) {
                             <Typography variant="body2" color="text.secondary">
                                 {cardData.text}
                             </Typography>
+                            {(cardData.hotelCost || cardData.flightCost || cardData.total) && <div className="additional-info">
+                                {cardData.flightCost && <div className="additional-info-item">{`Flight cost: ${cardData.flightCost}$`}</div>}
+                                {cardData.hotelCost && <div className="additional-info-item">{`Hotel cost: ${cardData.hotelCost}$`}</div>}
+                                {cardData.total && <div className="additional-info-item">{`Total: ${cardData.total}$`}</div>}
+                            </div>}
                         </CardContent>
                     </div>
                 </div>
