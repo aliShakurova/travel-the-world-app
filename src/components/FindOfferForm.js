@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from '@mui/material/Button';
 import HorizontalCard from "./HorizontalCard";
@@ -9,7 +9,6 @@ import "./FindOfferForm.scss";
 
 export default function FindOfferForm() {
     const [data, setData] = useState(null);
-    const [error, setError] = useState(false);
     const { register, handleSubmit } = useForm();
 
     const offers = [
@@ -28,12 +27,6 @@ export default function FindOfferForm() {
         { title: "Dominican Republic", subTitle: "Learn more about this country", hotelCost: 100, flightCost: 500, total: 600, image: "/images/shifaaz-shamoon.jpg", text: "Tourism has become one of the Dominican Republic’s most important sources of foreign exchange, and since the mid-1980s the country has been one of the Caribbean’s more popular tourist destinations. The favourable climate, beautiful beaches, restored Spanish colonial architecture, and relatively low prices have drawn an increasing number of foreign visitors and encouraged the building or expansion of resorts and airports on the northern, eastern, and southern coasts. In addition, a significant number of visitors have availed themselves of the country’s liberal divorce code. The United States accounts for the majority of vacationers; smaller numbers come from Canada, Italy, and other European nations. The main tourist sites are La Romana, Puerto Plata, Punta Cana, and the colonial centre of Santo Domingo, which was designated a World Heritage site in 1990." },
     ]
 
-    useEffect(()=> {
-        if (data && ((+data?.flightCost && +data.flightCost < 200) || (+data?.hotelCost && +data.hotelCost < 60) || (+data?.total && +data.total < 330))) {
-            setError(true)
-        }
-    }, [data])
-
     const searchResults = offers.filter((offer) => {
         const isFlightCostSuitable = +data?.flightCost ? +data?.flightCost >= offer.flightCost : true;
         const isHotelCostSuitable = +data?.hotelCost ? +data?.hotelCost >= offer.hotelCost : true;
@@ -47,6 +40,8 @@ export default function FindOfferForm() {
     const results = searchResults.length ? searchResults : offers;
 
     const infoIconWithTooltop = (title) => <Tooltip title={title}><InfoIcon fontSize="small" sx={{ padding: "0 6px" }} /></Tooltip>
+
+    const isError = (+data?.flightCost && +data.flightCost < 200) || (+data?.hotelCost && +data.hotelCost < 60) || (+data?.total && +data.total < 330);
 
     return (
         <div className="find-offer-form-container">
@@ -72,7 +67,7 @@ export default function FindOfferForm() {
                     <Button variant="outlined" style={{ color: "#FFF", borderColor: "#FFF" }} type="submit" >Search</Button>
                 </div>
             </form>
-            {(data && ((+data?.flightCost && +data.flightCost < 200) || (+data?.hotelCost && +data.hotelCost < 60) || (+data?.total && +data.total < 330))) ? <div className="text-note">"Oops! There is nothing on our website that matches your request. Change your search details or see all our offers below."</div> : null}
+            {isError ? <div className="text-note">"Oops! There is nothing on our website that matches your request. Change your search details or see all our offers below."</div> : null}
             <div className="text-note">{searchResults.length ? "Search results" : "All our offers"}</div>
             <div className="search-results">
                 {results.map(offer => <HorizontalCard data={offer} />)}
